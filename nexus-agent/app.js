@@ -116,15 +116,20 @@ function setupApp(botToken, appToken, appName) {
       const channelsResp = await app.client.conversations.list({ types: 'public_channel', exclude_archived: true });
       if (channelsResp.channels) {
         contextData = "";
-        for (const channel of channelsResp.channels.slice(0, 3)) {
-          try {
-            const historyResp = await app.client.conversations.history({ channel: channel.id, limit: 5 });
-            contextData += `\n--- Channel #${channel.name} ---\n`;
-            for (const msg of historyResp.messages) {
-              if (msg.text) contextData += `- ${msg.text}\n`;
+        let readCount = 0;
+        for (const channel of channelsResp.channels) {
+          if (channel.is_member) {
+            try {
+              const historyResp = await app.client.conversations.history({ channel: channel.id, limit: 5 });
+              contextData += `\n--- Channel #${channel.name} ---\n`;
+              for (const msg of historyResp.messages) {
+                if (msg.text) contextData += `- ${msg.text}\n`;
+              }
+              readCount++;
+              if (readCount >= 5) break;
+            } catch (err) {
+              console.log(`Could not read history for ${channel.name}: ${err.message}`);
             }
-          } catch (err) {
-            console.log(`Could not read history for ${channel.name}: ${err.message}`);
           }
         }
       }
