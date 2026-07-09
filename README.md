@@ -1,6 +1,6 @@
 # Nexus: The Autonomous Slack Agent Network 🤖
 
-![Nexus Dashboard](https://via.placeholder.com/1200x600?text=Nexus+Slack+Agent+Builder)
+![Nexus Dashboard](https://nexus-gilt-xi.vercel.app/)
 
 **Nexus** is a serverless, hyper-intelligent agent network built for the **SlackHack** hackathon. It seamlessly bridges Slack conversations with enterprise backends using **Model Context Protocol (MCP)**, **Slack Socket Mode**, and the **Inception LLM (mercury-2)**.
 
